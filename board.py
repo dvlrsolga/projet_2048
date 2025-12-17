@@ -37,6 +37,87 @@ class Board:
         self.n_elements += 1
     
 
+
+    #a l'air correct seul, avec plusieurs (vérifier si c'est correct avec des chiffres différents) ok
+    #+implémenter merge ok
+    #ne pas permettre l'action si elle ne fait rien
+    def move_right(self):
+        for i in range(4):#pour toutes les lignes
+            for j in range(2,-1,-1):#de droite à gauche
+                if self.matrix[i][j] != 0:#deplace les valeurs non nulles de 1 vers la droite
+                    start_index = j
+                    merge = False
+                    value = self.matrix[i][j]# tant que ce n'est pas le bord ou un autre chiffre
+                    while True:
+                        if start_index == 3:
+                            break
+                        if self.matrix[i][start_index+1]!=0:#si collision avec chiffre ->
+                            merge = True
+                            break
+
+                        self.matrix[i][start_index] = 0
+                        start_index+=1
+                        self.matrix[i][start_index] = value
+
+                    if merge and self.matrix[i][start_index+1]==value:# -> et même valeur
+                        self.matrix[i][start_index] = 0
+                        self.n_elements -= 1
+                        start_index+=1
+                        self.matrix[i][start_index] = value*2
+                        self.score += value*2
+
+
+    def move_left(self):
+        for i in range(4):
+            for j in range(1,4):
+                x = i
+                y = j
+                if self.matrix[x][y] != 0:
+                    while True:
+                        if y<=0:
+                            break
+                        if self.matrix[x][y-1] == 0: # si la case a gauche est libre : deplacer
+                            self.matrix[x][y-1] = self.matrix[x][y]
+                            self.matrix[x][y] = 0
+                            y-=1
+                        elif self.matrix[x][y-1] == self.matrix[x][y]: # si la case a gauche a la meme valeur : merge
+                            self.matrix[x][y-1] = self.matrix[x][y]*2
+                            self.matrix[x][y] = 0
+                            self.n_elements-=1
+                            self.score += self.matrix[x][y]*2
+                            y-=1
+                            break
+                        else:
+                            y-=1
+
+
+    #ne fonctionne pas, trouver le bug
+    #fonctionne mieux, vérifier
+    def move_down(self):
+        for i in range(4):
+            for j in range(2,-1,-1):#de bas en haut
+                if self.matrix[j][i] != 0:
+                    start_index = j
+                    merge = False
+                    value = self.matrix[j][i]
+                    while True:
+                        if start_index == 3:
+                            break
+                        if self.matrix[start_index+1][i]!=0:#si collision avec chiffre ->
+                            merge = True
+                            break
+
+                        self.matrix[start_index][i] = 0
+                        start_index+=1
+                        self.matrix[start_index][i] = value
+                    
+                    if merge and self.matrix[start_index+1][i]==value:# -> et même valeur
+                        self.matrix[start_index][i] = 0
+                        self.n_elements -= 1
+                        start_index+=1
+                        self.matrix[start_index][i] = value*2
+                        self.score += value*2
+
 my_board = Board()
 print(my_board)
 
