@@ -3,6 +3,12 @@ matrice 4x4 cases
 - 2 valeurs au début parmi 2 et 4, position aléatoire
 - 4 mouvements : gauche, droite, haut, bas
 - à chaque mouvement :
-	- déplacer toutes les cases vers la direction demandée si la case adjacente dans ce sens est 	  vide (y compris si elle vient d'être libérée)
+	- déplacer toutes les cases vers la direction demandée si la case adjacente dans ce sens est vide (y compris si elle vient d'être libérée)
 	- ajouter un 2 ou un 4 à une place vide aléatoire
-	- si 2 cases adjacentes ont la même valeur, la plus à/en [direction du dernier mouvement] 	 	  devient le double de cette valeur, l'autre redevient vide
+	- si 2 cases adjacentes ont la même valeur, la plus à/en [direction du dernier mouvement] devient le double de cette valeur, l'autre redevient vide
+
+TODO :
+- move_up
+- mvmt impossible compte pas
+- petite proba qu'un 4 apparaisse
+- fonction main pour lancer une partie
